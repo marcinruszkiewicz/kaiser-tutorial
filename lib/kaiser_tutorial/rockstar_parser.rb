@@ -20,6 +20,10 @@ module KaiserTutorial
 
     rule(:space) { match[' \t'].repeat(1) }
     rule(:string_input) { print_function | poetic_number_literal | proper_variable_name }
-    root(:string_input)
+
+    rule(:eol) { match["\n"] }
+    rule(:line) { (string_input >> eol.maybe).as(:line) }
+    rule(:lyrics) { line.repeat.as(:lyrics) }
+    root(:lyrics)
   end
 end

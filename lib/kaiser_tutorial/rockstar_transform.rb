@@ -4,6 +4,8 @@ module KaiserTutorial
     rule(string_as_number: simple(:str)) { |context| str_to_num(context[:str]) }
     rule(assignment: { left: simple(:left), right: simple(:right) }) { "#{left} = #{right}" }
     rule(print: { output: simple(:output) }) { "puts #{output}" }
+    rule(line: simple(:line)) { line }
+    rule(lyrics: sequence(:lines)) { lines.size > 1 ? lines.join("\n") + "\n" : lines.join }
 
     def self.parameterize(string)
       string.to_s.downcase.gsub(/\s+/, '_')

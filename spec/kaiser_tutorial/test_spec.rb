@@ -16,4 +16,19 @@ RSpec.describe KaiserTutorial do
       expect(KaiserTutorial.transpile("Shout Tommy")).to eq "puts tommy"
     end
   end
+
+  context 'transpiles multiple lines' do
+    let(:input) do <<~END
+        Jane is a dancer
+        World was spinning
+      END
+    end
+
+    it 'makes multiple lines properly' do
+      expect(KaiserTutorial.transpile(input)).to eq <<~RESULT
+        jane = 16
+        world = 8
+      RESULT
+    end
+  end
 end
