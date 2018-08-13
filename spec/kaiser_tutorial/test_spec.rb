@@ -10,4 +10,10 @@ RSpec.describe KaiserTutorial do
       expect(KaiserTutorial.transpile("Tommy was a lean mean wrecking machine")).to eq "tommy = 14487"
     end
   end
+
+  context 'print statement' do
+    it "prints a variable" do
+      expect(KaiserTutorial.transpile("Shout Tommy")).to eq "puts tommy"
+    end
+  end
 end

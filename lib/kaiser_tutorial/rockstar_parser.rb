@@ -14,8 +14,12 @@ module KaiserTutorial
       ).as(:assignment)
     end
 
+    rule(:print_function) do
+      (str('Shout') >> space >> proper_variable_name.as(:output)).as(:print)
+    end
+
     rule(:space) { match[' \t'].repeat(1) }
-    rule(:string_input) { poetic_number_literal | proper_variable_name }
+    rule(:string_input) { print_function | poetic_number_literal | proper_variable_name }
     root(:string_input)
   end
 end
