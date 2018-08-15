@@ -1,6 +1,19 @@
 module KaiserTutorial
   class RockstarTransform < Parslet::Transform
-    rule(variable_name: simple(:str)) { |context| parameterize(context[:str]) }
+    @@last_variable = nil
+
+    class << self
+      def last_variable=(value)
+        @@last_variable = value
+      end
+    end
+        
+    rule(variable_name: simple(:str)) do |context|
+      self.last_variable = parameterize(context[:str])
+      parameterize(context[:str])
+    end
+    rule(pronoun: simple(:_)) { @@last_variable }
+
     rule(string_as_number: simple(:str)) { |context| str_to_num(context[:str]) }
     rule(assignment: { left: simple(:left), right: simple(:right) }) { "#{left} = #{right}" }
     rule(print: { output: simple(:output) }) { "puts #{output}" }
