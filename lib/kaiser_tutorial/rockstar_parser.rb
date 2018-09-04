@@ -3,8 +3,12 @@ module KaiserTutorial
     rule(:proper_word) { match['A-Z'] >> match['A-Za-z'].repeat }
     rule(:proper_variable_name) { (proper_word >> (space >> proper_word).repeat).repeat(1).as(:variable_name) }
 
+    rule(:common_variable_name) do
+      ((str('A ') | str('a ') | str('The ') | str('the ')) >> match['[[:lower:]]'].repeat).as(:variable_name)
+    end
+
     rule(:pronouns) { (str('he') | str('she') | str('it') | str('they') | str('them') | str('her') | str('him') | str('its')).as(:pronoun) }
-    rule(:variable_names) { pronouns | proper_variable_name }
+    rule(:variable_names) { pronouns | common_variable_name | proper_variable_name }
 
     rule(:string_as_number) { match['^\n'].repeat.as(:string_as_number) }
 
@@ -21,8 +25,12 @@ module KaiserTutorial
       (str('Shout') >> space >> variable_names.as(:output)).as(:print)
     end
 
+    rule(:basic_assignment_expression) do
+      (str('Put ') >> variable_names.as(:right) >> str(' into ') >> variable_names.as(:left)).as(:assignment)
+    end
+
     rule(:space) { match[' \t'].repeat(1) }
-    rule(:string_input) { print_function | poetic_number_literal | proper_variable_name }
+    rule(:string_input) { print_function | basic_assignment_expression | poetic_number_literal | proper_variable_name | common_variable_name }
 
     rule(:eol) { match["\n"] }
     rule(:line) { (string_input >> eol.maybe).as(:line) }

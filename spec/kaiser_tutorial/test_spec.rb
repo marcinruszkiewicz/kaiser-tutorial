@@ -32,6 +32,18 @@ RSpec.describe KaiserTutorial do
     end
   end
 
+  context 'common variable name' do
+    it 'converts words to a variable name' do
+      expect(KaiserTutorial.transpile("the world")).to eq "the_world"
+    end
+  end
+
+  context 'assignment' do
+    it 'assigns variables' do
+      expect(KaiserTutorial.transpile("Put the love into the heart")).to eq "the_heart = the_love"
+    end
+  end
+
   context 'handles pronouns correctly' do
     let(:input) do <<~END
         Jane is a dancer
