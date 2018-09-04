@@ -29,8 +29,12 @@ module KaiserTutorial
       (str('Put ') >> variable_names.as(:right) >> str(' into ') >> variable_names.as(:left)).as(:assignment)
     end
 
+    rule(:input) do
+      str('Listen to ') >> variable_names.as(:input_variable)
+    end
+
     rule(:space) { match[' \t'].repeat(1) }
-    rule(:string_input) { print_function | basic_assignment_expression | poetic_number_literal | proper_variable_name | common_variable_name }
+    rule(:string_input) { input | print_function | basic_assignment_expression | poetic_number_literal | proper_variable_name | common_variable_name }
 
     rule(:eol) { match["\n"] }
     rule(:line) { (string_input >> eol.maybe).as(:line) }

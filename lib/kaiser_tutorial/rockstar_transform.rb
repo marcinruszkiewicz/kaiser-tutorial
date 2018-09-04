@@ -17,6 +17,10 @@ module KaiserTutorial
     rule(string_as_number: simple(:str)) { |context| str_to_num(context[:str]) }
     rule(assignment: { left: simple(:left), right: simple(:right) }) { "#{left} = #{right}" }
     rule(print: { output: simple(:output) }) { "puts #{output}" }
+    rule(input_variable: simple(:var)) do
+      "print '> '\n__input = STDIN.gets.chomp\n#{var} = Integer(__input) rescue input"
+    end
+
     rule(line: simple(:line)) { line }
     rule(lyrics: sequence(:lines)) { lines.size > 1 ? lines.join("\n") + "\n" : lines.join }
 
