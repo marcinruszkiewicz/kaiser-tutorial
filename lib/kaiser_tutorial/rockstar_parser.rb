@@ -33,8 +33,16 @@ module KaiserTutorial
       str('Listen to ') >> variable_names.as(:input_variable)
     end
 
+    rule(:function_call) do
+      (
+        variable_names.as(:function_name) >> str(' taking ') >> variable_names.as(:argument_name)
+      ).as(:function_call)
+    end
+
     rule(:space) { match[' \t'].repeat(1) }
-    rule(:string_input) { input | print_function | basic_assignment_expression | poetic_number_literal | proper_variable_name | common_variable_name }
+    rule(:string_input) do 
+      input | print_function | function_call | basic_assignment_expression | poetic_number_literal | proper_variable_name | common_variable_name
+    end
 
     rule(:eol) { match["\n"] }
     rule(:line) { (string_input >> eol.maybe).as(:line) }

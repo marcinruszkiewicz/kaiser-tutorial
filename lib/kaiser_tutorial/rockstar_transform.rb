@@ -20,6 +20,9 @@ module KaiserTutorial
     rule(input_variable: simple(:var)) do
       "print '> '\n__input = STDIN.gets.chomp\n#{var} = Integer(__input) rescue input"
     end
+    rule(function_call: { function_name: simple(:function_name), argument_name: simple(:argument_name) }) do      
+      "#{function_name}(#{argument_name})"
+    end
 
     rule(line: simple(:line)) { line }
     rule(lyrics: sequence(:lines)) { lines.size > 1 ? lines.join("\n") + "\n" : lines.join }

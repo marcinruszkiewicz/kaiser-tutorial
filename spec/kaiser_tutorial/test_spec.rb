@@ -79,4 +79,10 @@ RSpec.describe KaiserTutorial do
       RESULT
     end
   end  
+
+  context 'function call' do
+    it 'tranforms function name and argument' do
+      expect(KaiserTutorial.transpile("Superman taking a whooping")).to eq 'superman(a_whooping)'
+    end
+  end
 end
