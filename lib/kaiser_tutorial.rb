@@ -7,6 +7,7 @@ module KaiserTutorial
     KaiserTutorial::RockstarParser.new.parse(input)
   rescue Parslet::ParseFailed => failure
     puts failure.parse_failure_cause.ascii_tree
+    raise SyntaxError, failure.message
   end
 
   def self.transform(tree)
