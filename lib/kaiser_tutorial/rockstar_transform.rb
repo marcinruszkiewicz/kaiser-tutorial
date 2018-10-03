@@ -7,7 +7,7 @@ module KaiserTutorial
         @@last_variable = value
       end
     end
-        
+
     rule(variable_name: simple(:str)) do |context|
       self.last_variable = parameterize(context[:str])
       parameterize(context[:str])
@@ -20,9 +20,10 @@ module KaiserTutorial
     rule(input_variable: simple(:var)) do
       "print '> '\n__input = STDIN.gets.chomp\n#{var} = Integer(__input) rescue input"
     end
-    rule(function_call: { function_name: simple(:function_name), argument_name: simple(:argument_name) }) do      
+    rule(function_call: { function_name: simple(:function_name), argument_name: simple(:argument_name) }) do
       "#{function_name}(#{argument_name})"
     end
+    rule(return_statement: simple(:value)) { "return #{value}" }
 
     rule(line: simple(:line)) { line }
     rule(lyrics: sequence(:lines)) { lines.size > 1 ? lines.join("\n") + "\n" : lines.join }

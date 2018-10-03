@@ -39,9 +39,13 @@ module KaiserTutorial
       ).as(:function_call)
     end
 
+    rule(:return_statement) do
+      str('Give back ') >> variable_names.as(:return_statement)
+    end
+
     rule(:space) { match[' \t'].repeat(1) }
-    rule(:string_input) do 
-      input | print_function | function_call | basic_assignment_expression | poetic_number_literal | proper_variable_name | common_variable_name
+    rule(:string_input) do
+      return_statement | input | print_function | function_call | basic_assignment_expression | poetic_number_literal | proper_variable_name | common_variable_name
     end
 
     rule(:eol) { match["\n"] }
