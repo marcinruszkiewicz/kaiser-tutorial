@@ -1,7 +1,19 @@
 RSpec.describe KaiserTutorial do
   context 'print statement' do
-    it "prints a variable" do
-      expect(KaiserTutorial.transpile("Shout Tommy")).to eq "puts tommy"
+    it 'handles proper variables' do
+      expect(KaiserTutorial.transpile('Shout Tommy')).to eq 'puts tommy'
+    end
+
+    it 'handles common variables' do
+      expect(KaiserTutorial.transpile('Shout the world')).to eq 'puts the_world'
+    end
+
+    it 'throws a syntax error if passed garbage' do
+      expect(KaiserTutorial.transpile('Shout the Rock')).to eq ''
+    end
+
+    it 'throws a syntax error if passed a function call' do
+      expect(KaiserTutorial.transpile('Shout Joker taking Hostages')).to eq ''
     end
   end
 
