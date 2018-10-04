@@ -6,8 +6,12 @@ RSpec.describe KaiserTutorial do
   end
 
   context 'common variable name' do
-    it 'converts words to a variable name' do
+    it 'converts lowercase words' do
       expect(KaiserTutorial.transpile("the world")).to eq "the_world"
+    end
+
+    it "doesn't convert mixed case words" do
+      expect { KaiserTutorial.transpile('the World') }.to raise_error SyntaxError
     end
   end
 

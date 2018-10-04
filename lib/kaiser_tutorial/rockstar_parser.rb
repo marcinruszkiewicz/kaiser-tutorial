@@ -1,14 +1,14 @@
 module KaiserTutorial
   class RockstarParser < Parslet::Parser
     rule(:proper_word) { match['A-Z'] >> match['A-Za-z'].repeat }
-    rule(:proper_variable_name) { (proper_word >> (space >> proper_word).repeat).repeat(1).as(:variable_name) }
+    rule(:proper_variable_name) { (proper_word >> (space >> proper_word).repeat).repeat(1) }
 
     rule(:common_variable_name) do
-      ((str('A ') | str('a ') | str('The ') | str('the ')) >> match['[[:lower:]]'].repeat).as(:variable_name)
+      (str('A ') | str('a ') | str('The ') | str('the ')) >> match['[[:lower:]]'].repeat(1)
     end
 
     rule(:pronouns) { (str('he') | str('she') | str('it') | str('they') | str('them') | str('her') | str('him') | str('its')).as(:pronoun) }
-    rule(:variable_names) { pronouns | common_variable_name | proper_variable_name }
+    rule(:variable_names) { (pronouns | common_variable_name | proper_variable_name).as(:variable_name) }
 
     rule(:string_as_number) { match['^\n'].repeat.as(:string_as_number) }
 
@@ -45,7 +45,7 @@ module KaiserTutorial
 
     rule(:space) { match[' \t'].repeat(1) }
     rule(:string_input) do
-      return_statement | input | print_function | function_call | basic_assignment_expression | poetic_number_literal | proper_variable_name | common_variable_name
+      return_statement | input | print_function | function_call | basic_assignment_expression | poetic_number_literal | variable_names
     end
 
     rule(:eol) { match["\n"] }

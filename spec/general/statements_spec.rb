@@ -9,11 +9,11 @@ RSpec.describe KaiserTutorial do
     end
 
     it 'throws a syntax error if passed garbage' do
-      expect(KaiserTutorial.transpile('Shout the Rock')).to eq ''
+      expect { KaiserTutorial.transpile('Shout the Rock') }.to raise_error SyntaxError
     end
 
     it 'throws a syntax error if passed a function call' do
-      expect{ KaiserTutorial.transpile('Shout Joker taking Hostages') }.to raise_error SyntaxError
+      expect { KaiserTutorial.transpile('Shout Joker taking Hostages') }.to raise_error SyntaxError
     end
   end
 
