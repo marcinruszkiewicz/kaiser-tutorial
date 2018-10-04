@@ -28,7 +28,7 @@ RSpec.describe KaiserTutorial do
       expect(KaiserTutorial.transpile(input)).to eq <<~RESULT
         print '> '
         __input = STDIN.gets.chomp
-        the_news = Integer(__input) rescue input
+        the_news = Integer(__input) rescue __input
         puts the_news
       RESULT
     end

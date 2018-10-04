@@ -1,7 +1,11 @@
 RSpec.describe KaiserTutorial do
   context 'proper variable name' do
-    it 'converts a word to a variable name' do
+    it 'converts a capitalized word to a variable name' do
       expect(KaiserTutorial.transpile("Tommy")).to eq "tommy"
+    end
+
+    it 'a single lowercased word is not a variable name' do
+      expect { KaiserTutorial.transpile('johnny') }.to raise_error SyntaxError
     end
   end
 

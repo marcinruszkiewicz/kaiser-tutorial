@@ -18,7 +18,7 @@ module KaiserTutorial
     rule(assignment: { left: simple(:left), right: simple(:right) }) { "#{left} = #{right}" }
     rule(print: { output: simple(:output) }) { "puts #{output}" }
     rule(input_variable: simple(:var)) do
-      "print '> '\n__input = STDIN.gets.chomp\n#{var} = Integer(__input) rescue input"
+      "print '> '\n__input = STDIN.gets.chomp\n#{var} = Integer(__input) rescue __input"
     end
     rule(function_call: { function_name: simple(:function_name), argument_name: simple(:argument_name) }) do
       "#{function_name}(#{argument_name})"
