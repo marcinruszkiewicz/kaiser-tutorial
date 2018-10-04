@@ -24,6 +24,8 @@ module KaiserTutorial
       "#{function_name}(#{argument_name})"
     end
     rule(return_statement: simple(:value)) { "return #{value}" }
+    rule(addition: { left: simple(:left), right: simple(:right) }) { "#{left} + #{right}" }
+    rule(multiplication: { left: simple(:left), right: simple(:right) }) { "#{left} * #{right}" }
 
     rule(line: simple(:line)) { line }
     rule(lyrics: sequence(:lines)) { lines.size > 1 ? lines.join("\n") + "\n" : lines.join }

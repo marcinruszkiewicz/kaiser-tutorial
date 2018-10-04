@@ -43,9 +43,23 @@ module KaiserTutorial
       str('Give back ') >> variable_names.as(:return_statement)
     end
 
+    rule(:addition) do
+      (
+        variable_names.as(:left) >> str(' with ') >> variable_names.as(:right)
+      ).as(:addition)
+    end
+
+    rule(:multiplication) do
+      (
+        variable_names.as(:left) >> str(' of ') >> variable_names.as(:right)
+      ).as(:multiplication)
+    end
+
+    rule(:math_operations) { addition | multiplication }
+
     rule(:space) { match[' \t'].repeat(1) }
     rule(:string_input) do
-      return_statement | input | print_function | function_call | basic_assignment_expression | poetic_number_literal | variable_names
+      math_operations | return_statement | input | print_function | function_call | basic_assignment_expression | poetic_number_literal | variable_names
     end
 
     rule(:eol) { match["\n"] }
