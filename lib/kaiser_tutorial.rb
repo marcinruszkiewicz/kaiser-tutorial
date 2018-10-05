@@ -6,7 +6,7 @@ module KaiserTutorial
   def self.parse(input)
     KaiserTutorial::RockstarParser.new.parse(input)
   rescue Parslet::ParseFailed => failure
-    puts failure.parse_failure_cause.ascii_tree
+    puts failure.parse_failure_cause.ascii_tree unless ENV['RACK_ENV'] == 'test'
     raise SyntaxError, failure.message
   end
 
