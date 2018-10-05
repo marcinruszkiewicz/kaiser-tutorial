@@ -32,6 +32,16 @@ module KaiserTutorial
       str('Listen to ') >> variable_names.as(:input_variable)
     end
 
+    rule(:function_definition) do
+      (
+        variable_names.as(:function_name) >> str(' takes ') >> variable_names.as(:argument_name) >> eol >>
+        scope {
+          line.repeat.as(:function_block) >>
+          (eol | eof)
+        }
+      ).as(:function_definition)
+    end
+
     rule(:function_call) do
       (
         variable_names.as(:function_name) >> str(' taking ') >> variable_names.as(:argument_name)
@@ -57,13 +67,12 @@ module KaiserTutorial
     rule(:variable_names) { (pronouns | common_variable_name | proper_variable_name).as(:variable_name) }
     rule(:math_operations) { addition | multiplication }
     rule(:operation_or_variable) { math_operations | variable_names }
+    rule(:statements) { return_statement | input | print_function | function_call | basic_assignment_expression | poetic_number_literal }
+    rule(:string_input) { function_definition | math_operations | statements | variable_names }
 
     rule(:space) { match[' \t'].repeat(1) }
-    rule(:string_input) do
-      math_operations | return_statement | input | print_function | function_call | basic_assignment_expression | poetic_number_literal | variable_names
-    end
-
     rule(:eol) { match["\n"] }
+    rule(:eof) { any.absent? }
     rule(:line) { (string_input >> eol.maybe).as(:line) }
     rule(:lyrics) { line.repeat.as(:lyrics) }
     root(:lyrics)

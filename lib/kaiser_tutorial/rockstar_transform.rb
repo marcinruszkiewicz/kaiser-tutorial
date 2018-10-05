@@ -31,6 +31,18 @@ module KaiserTutorial
     rule(function_call: { function_name: simple(:function_name), argument_name: simple(:argument_name) }) do
       "#{function_name}(#{argument_name})"
     end
+
+    rule(function_definition: {
+      function_name: simple(:function_name),
+      argument_name: simple(:argument_name),
+      function_block: sequence(:function_block_lines)
+    } ) do |context|
+      output = "def #{context[:function_name]}(#{context[:argument_name]})\n"
+      output += context[:function_block_lines].map { |l| "  #{l}\n" }.join
+      output += "end # enddef\n"
+      output
+    end
+
     rule(return_statement: simple(:value)) { "return #{value}" }
     rule(addition: { left: simple(:left), right: simple(:right) }) { "#{left} + #{right}" }
     rule(multiplication: { left: simple(:left), right: simple(:right) }) { "#{left} * #{right}" }

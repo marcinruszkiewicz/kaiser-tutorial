@@ -22,4 +22,22 @@ RSpec.describe KaiserTutorial do
       expect { KaiserTutorial.transpile('Give back the Message') }.to raise_error SyntaxError
     end
   end
+
+  context 'function definition' do
+    let(:one_argument_function) do <<~END
+        Midnight takes Hate
+        Shout Desire
+        Give back Desire
+      END
+    end
+
+    it 'makes a function definition' do
+      expect(KaiserTutorial.transpile(one_argument_function)).to eq <<~RESULT
+        def midnight(hate)
+          puts desire
+          return desire
+        end # enddef
+      RESULT
+    end
+  end
 end
