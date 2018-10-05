@@ -21,7 +21,7 @@ module KaiserTutorial
     end
 
     rule(:print_function) do
-      (str('Shout') >> space >> variable_names.as(:output)).as(:print)
+      (str('Shout') >> space >> operation_or_variable.as(:output)).as(:print)
     end
 
     rule(:basic_assignment_expression) do

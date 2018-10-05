@@ -8,6 +8,10 @@ RSpec.describe KaiserTutorial do
       expect(KaiserTutorial.transpile('Shout the world')).to eq 'puts the_world'
     end
 
+    it 'prints a math operation' do
+      expect(KaiserTutorial.transpile('Shout the love of the world')).to eq 'puts the_love * the_world'
+    end
+
     it 'throws a syntax error if passed garbage' do
       expect { KaiserTutorial.transpile('Shout the Rock') }.to raise_error SyntaxError
     end
