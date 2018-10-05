@@ -14,8 +14,12 @@ RSpec.describe KaiserTutorial do
       expect(KaiserTutorial.transpile('Give back a song')).to eq 'return a_song'
     end
 
+    it 'returns a result of a math operation' do
+      expect(KaiserTutorial.transpile('Give back a song with a message')).to eq 'return a_song + a_message'
+    end
+
     it 'throws syntax error if passed not a variable name' do
-      expect { KaiserTutorial.transpile('Give back Spiderman taking a break') }.to raise_error SyntaxError
+      expect { KaiserTutorial.transpile('Give back the Message') }.to raise_error SyntaxError
     end
   end
 end

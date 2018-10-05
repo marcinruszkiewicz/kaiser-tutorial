@@ -8,7 +8,6 @@ module KaiserTutorial
     end
 
     rule(:pronouns) { (str('he') | str('she') | str('it') | str('they') | str('them') | str('her') | str('him') | str('its')).as(:pronoun) }
-    rule(:variable_names) { (pronouns | common_variable_name | proper_variable_name).as(:variable_name) }
 
     rule(:string_as_number) { match['^\n'].repeat.as(:string_as_number) }
 
@@ -26,7 +25,7 @@ module KaiserTutorial
     end
 
     rule(:basic_assignment_expression) do
-      (str('Put ') >> variable_names.as(:right) >> str(' into ') >> variable_names.as(:left)).as(:assignment)
+      (str('Put ') >> operation_or_variable.as(:right) >> str(' into ') >> variable_names.as(:left)).as(:assignment)
     end
 
     rule(:input) do
@@ -40,7 +39,7 @@ module KaiserTutorial
     end
 
     rule(:return_statement) do
-      str('Give back ') >> variable_names.as(:return_statement)
+      str('Give back ') >> operation_or_variable.as(:return_statement)
     end
 
     rule(:addition) do
@@ -55,7 +54,9 @@ module KaiserTutorial
       ).as(:multiplication)
     end
 
+    rule(:variable_names) { (pronouns | common_variable_name | proper_variable_name).as(:variable_name) }
     rule(:math_operations) { addition | multiplication }
+    rule(:operation_or_variable) { math_operations | variable_names }
 
     rule(:space) { match[' \t'].repeat(1) }
     rule(:string_input) do

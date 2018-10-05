@@ -6,8 +6,17 @@ RSpec.describe KaiserTutorial do
   end
 
   context 'assignment statement' do
-    it 'assigns variables' do
+    it 'assigns common variables' do
       expect(KaiserTutorial.transpile("Put the love into the heart")).to eq "the_heart = the_love"
+    end
+
+
+    it 'assigns proper variables' do
+      expect(KaiserTutorial.transpile('Put Love into Heart')).to eq 'heart = love'
+    end
+
+    it 'assigns result of math operations' do
+      expect(KaiserTutorial.transpile('Put the love with the soul into Heart')).to eq 'heart = the_love + the_soul'
     end
   end
 end
