@@ -13,4 +13,12 @@ RSpec.describe KaiserTutorial do
       RESULT
     end
   end
+
+  context 'celsius to fahrenheit example' do
+    let(:input) { file_fixture "c_to_f.rock" }
+
+    it 'transpiles code' do
+      expect(KaiserTutorial.transpile(input.read)).to eq ''
+    end
+  end
 end
