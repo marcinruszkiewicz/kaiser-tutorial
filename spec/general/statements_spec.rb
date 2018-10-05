@@ -16,8 +16,12 @@ RSpec.describe KaiserTutorial do
       expect { KaiserTutorial.transpile('Shout the Rock') }.to raise_error SyntaxError
     end
 
-    it 'throws a syntax error if passed a function call' do
-      expect { KaiserTutorial.transpile('Shout Joker taking Hostages') }.to raise_error SyntaxError
+    it 'handles different keywords' do
+      expect(KaiserTutorial.transpile('Scream Really Loud')).to eq 'puts really_loud'
+    end
+
+    it 'prints the result of a function call' do
+      expect(KaiserTutorial.transpile('Shout Joker taking Hostages')).to eq 'puts joker(hostages)'
     end
   end
 
