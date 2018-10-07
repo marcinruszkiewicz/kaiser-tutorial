@@ -1,6 +1,6 @@
 module KaiserTutorial
   class RockstarParser < Parslet::Parser
-    rule(:proper_word) { match['A-Z'] >> match['A-Za-z'].repeat }
+    rule(:proper_word) { match['[[:upper:]]'] >> match['[[:alpha:]]'].repeat }
     rule(:proper_variable_name) { (proper_word >> (space >> proper_word).repeat).repeat(1) }
 
     rule(:common_variable_name) do

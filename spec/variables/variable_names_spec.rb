@@ -7,6 +7,10 @@ RSpec.describe KaiserTutorial do
     it 'a single lowercased word is not a variable name' do
       expect { KaiserTutorial.transpile('johnny') }.to raise_error SyntaxError
     end
+
+    it 'handles metal umlauts' do
+      expect(KaiserTutorial.transpile('Motörhead')).to eq 'motörhead'
+    end
   end
 
   context 'common variable name' do
@@ -16,6 +20,10 @@ RSpec.describe KaiserTutorial do
 
     it "doesn't convert mixed case words" do
       expect { KaiserTutorial.transpile('the World') }.to raise_error SyntaxError
+    end
+
+    it 'handles metal umlauts' do
+      expect(KaiserTutorial.transpile('the öyster')).to eq "the_öyster"
     end
   end
 
