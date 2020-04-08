@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe KaiserTutorial do
   context 'function call' do
     it 'tranforms function name and argument' do
@@ -24,7 +26,8 @@ RSpec.describe KaiserTutorial do
   end
 
   context 'function definition' do
-    let(:one_argument_function) do <<~END
+    let(:one_argument_function) do
+      <<~END
         Midnight takes Hate
         Shout Desire
         Give back Desire

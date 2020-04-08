@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module KaiserTutorial
   class RockstarParser < Parslet::Parser
     rule(:proper_word) { match['[[:upper:]]'] >> match['[[:alpha:]]'].repeat }
@@ -35,10 +37,10 @@ module KaiserTutorial
     rule(:function_definition) do
       (
         variable_names.as(:function_name) >> str(' takes ') >> variable_names.as(:argument_name) >> eol >>
-        scope {
+        scope do
           line.repeat.as(:function_block) >>
           (eol | eof)
-        }
+        end
       ).as(:function_definition)
     end
 

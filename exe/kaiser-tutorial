@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
-require "rubygems"
-require "bundler/setup"
-require "kaiser_tutorial"
-require "kaiser_tutorial/cli"
+# frozen_string_literal: true
+
+require 'rubygems'
+require 'bundler/setup'
+require 'kaiser_tutorial'
+require 'kaiser_tutorial/cli'
 
 KaiserTutorial::CLI.start(ARGV)

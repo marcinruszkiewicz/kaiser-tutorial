@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe KaiserTutorial do
   context 'print statement' do
     it 'handles proper variables' do
@@ -26,7 +28,8 @@ RSpec.describe KaiserTutorial do
   end
 
   context 'input from STDIN' do
-    let(:input) do <<~END
+    let(:input) do
+      <<~END
         Listen to the news
         Shout the news
       END

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 RSpec.describe KaiserTutorial do
   context 'transpiles multiple lines' do
-    let(:input) do <<~END
+    let(:input) do
+      <<~END
         Jane is a dancer
         World was spinning
       END
@@ -15,7 +18,7 @@ RSpec.describe KaiserTutorial do
   end
 
   context 'celsius to fahrenheit example' do
-    let(:input) { file_fixture "c_to_f.rock" }
+    let(:input) { file_fixture 'c_to_f.rock' }
 
     it 'transpiles code' do
       expect(KaiserTutorial.transpile(input.read)).to eq <<~PROGRAM
@@ -25,7 +28,7 @@ RSpec.describe KaiserTutorial do
           the_grimoire = a_whisper * the_spell
           return a_demoneye + the_grimoire
         end # enddef
-        
+
         print '> '
         __input = STDIN.gets.chomp
         a_whisper = Integer(__input) rescue __input

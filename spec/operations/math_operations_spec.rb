@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe KaiserTutorial do
   context 'addition' do
     it 'works with common variables' do

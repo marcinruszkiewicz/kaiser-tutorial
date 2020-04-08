@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module KaiserTutorial
   class RockstarTransform < Parslet::Transform
     @@last_variable = nil
@@ -33,10 +35,10 @@ module KaiserTutorial
     end
 
     rule(function_definition: {
-      function_name: simple(:function_name),
-      argument_name: simple(:argument_name),
-      function_block: sequence(:function_block_lines)
-    } ) do |context|
+           function_name: simple(:function_name),
+           argument_name: simple(:argument_name),
+           function_block: sequence(:function_block_lines)
+         }) do |context|
       output = "def #{context[:function_name]}(#{context[:argument_name]})\n"
       output += context[:function_block_lines].map { |l| "  #{l}\n" }.join
       output += "end # enddef\n"
